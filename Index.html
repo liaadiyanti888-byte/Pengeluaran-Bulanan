@@ -1,0 +1,378 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Home Finance</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root {
+  --pink:#f4dce8;
+  --purple:#e9e2f4;
+  --cream:#fff7ec;
+  --green:#e1f0e7;
+  --dark:#59485f;
+  --bg:#faf7fa;
+}
+* {box-sizing:border-box}
+body {
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:var(--bg);
+  color:var(--dark);
+}
+header {
+  background:linear-gradient(120deg,var(--pink),var(--purple));
+  padding:25px 5%;
+}
+header h1 {margin:0 0 8px;font-size:25px}
+header p {margin:0}
+main {max-width:1100px;margin:auto;padding:20px}
+.panel {
+  background:white;
+  padding:20px;
+  border-radius:16px;
+  margin-bottom:18px;
+  box-shadow:0 3px 14px #55445c10;
+}
+.grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:14px;
+}
+.stat {
+  padding:18px;
+  border-radius:14px;
+  background:var(--cream);
+}
+.stat:nth-child(2){background:var(--pink)}
+.stat:nth-child(3){background:var(--green)}
+.stat:nth-child(4){background:var(--purple)}
+.stat p {margin:0 0 10px;font-size:13px}
+.stat h2 {margin:0;font-size:22px}
+h3 {margin-top:0}
+input,select,button {
+  padding:11px;
+  border-radius:9px;
+  border:1px solid #e5dce8;
+  font-size:14px;
+  width:100%;
+}
+button {
+  border:0;
+  background:#b88da9;
+  color:white;
+  cursor:pointer;
+  font-weight:bold;
+}
+button:hover {opacity:.85}
+.form-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:12px;
+}
+.form-grid button {align-self:end}
+table {width:100%;border-collapse:collapse}
+th,td {
+  text-align:left;
+  padding:12px 8px;
+  border-bottom:1px solid #eee;
+  font-size:13px;
+}
+th {background:var(--cream)}
+.delete {background:#d98b9b;padding:7px}
+.tabs {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-bottom:18px;
+}
+.tabs button {width:auto;background:#e9e2f4;color:var(--dark)}
+.tabs button.active {background:#b88da9;color:white}
+.item {
+  display:flex;
+  justify-content:space-between;
+  padding:10px 0;
+  border-bottom:1px solid #eee;
+  gap:10px;
+}
+.item input {width:auto}
+.small {font-size:12px;color:#928596}
+footer {text-align:center;padding:25px;color:#928596}
+@media(max-width:600px) {
+  main {padding:12px}
+  .panel {padding:14px}
+  header h1 {font-size:21px}
+  table {min-width:600px}
+  .table-wrap {overflow-x:auto}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🌷 My Home Finance</h1>
+  <p>Kelola keuangan rumah tangga dengan lebih mudah dan teratur.</p>
+</header>
+
+<main>
+  <section class="panel">
+    <div class="form-grid">
+      <div>
+        <label>Bulan</label>
+        <input type="month" id="month">
+      </div>
+      <div>
+        <label>Anggaran bulanan (Rp)</label>
+        <input type="number" id="budget" placeholder="3000000">
+      </div>
+      <div>
+        <label>&nbsp;</label>
+        <button onclick="saveBudget()">Simpan Anggaran</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="grid">
+    <div class="stat">
+      <p>💰 Total Pemasukan</p>
+      <h2 id="income">Rp0</h2>
+    </div>
+    <div class="stat">
+      <p>🛍️ Total Pengeluaran</p>
+      <h2 id="expense">Rp0</h2>
+    </div>
+    <div class="stat">
+      <p>🌿 Sisa Anggaran</p>
+      <h2 id="remaining">Rp0</h2>
+    </div>
+    <div class="stat">
+      <p>📊 Persentase Terpakai</p>
+      <h2 id="percentage">0%</h2>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="active" onclick="showTab('transaksi',this)">Transaksi</button>
+    <button onclick="showTab('kategori',this)">Kategori</button>
+    <button onclick="showTab('checklist',this)">Checklist</button>
+    <button onclick="showTab('laporan',this)">Laporan</button>
+  </div>
+
+  <section id="transaksi" class="tab panel">
+    <h3>📝 Tambah Transaksi</h3>
+    <form id="transactionForm" class="form-grid">
+      <input type="date" id="date" required>
+      <select id="type">
+        <option value="expense">Pengeluaran</option>
+        <option value="income">Pemasukan</option>
+      </select>
+      <select id="category"></select>
+      <input type="text" id="description" placeholder="Keterangan transaksi" required>
+      <input type="number" id="amount" placeholder="Nominal (Rp)" min="1" required>
+      <button type="submit">+ Simpan Transaksi</button>
+    </form>
+
+    <h3 style="margin-top:25px">Riwayat Transaksi</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Tanggal</th><th>Jenis</th><th>Kategori</th><th>Keterangan</th><th>Nominal</th><th>Aksi</th></tr>
+        </thead>
+        <tbody id="history"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="kategori" class="tab panel" hidden>
+    <h3>📦 Rekap Per Kategori</h3>
+    <div id="categorySummary"></div>
+  </section>
+
+  <section id="checklist" class="tab panel" hidden>
+    <h3>🛒 Checklist Kebutuhan Bulanan</h3>
+    <div class="form-grid">
+      <input id="newItem" placeholder="Nama kebutuhan">
+      <button onclick="addItem()">Tambah Kebutuhan</button>
+    </div>
+    <div id="shoppingList" style="margin-top:15px"></div>
+  </section>
+
+  <section id="laporan" class="tab panel" hidden>
+    <h3>📈 Grafik Pengeluaran</h3>
+    <canvas id="chart"></canvas>
+    <h3 style="margin-top:25px">Ringkasan Bulanan</h3>
+    <div id="report"></div>
+  </section>
+</main>
+
+<footer>My Home Finance · Catatan keuangan keluarga 🌸</footer>
+
+<script>
+const categories = {
+  expense:[
+    "Bahan Pokok","Bahan Makanan","Sayur & Buah",
+    "Kebutuhan Dapur","Perlengkapan Mandi",
+    "Kebersihan Rumah","Kebutuhan Anak",
+    "Transportasi","Listrik & Air","Internet & Pulsa",
+    "Kesehatan","Pendidikan","Hiburan",
+    "Cicilan","Lain-lain"
+  ],
+  income:["Gaji","Usaha","Bonus","Pendapatan Lain"]
+};
+
+const defaultItems = [
+  "Beras","Minyak goreng","Gula","Telur","Sayuran",
+  "Buah-buahan","Gas LPG","Air galon","Sabun mandi",
+  "Sampo","Pasta gigi","Deterjen","Sabun cuci piring",
+  "Pembersih lantai","Tisu","Kebutuhan anak"
+];
+
+let transactions = JSON.parse(localStorage.getItem("transactions") || "[]");
+let budgets = JSON.parse(localStorage.getItem("budgets") || "{}");
+let shopping = JSON.parse(localStorage.getItem("shopping") || "null") || defaultItems.map(name=>({name,done:false}));
+let chart = null;
+
+const rupiah = n => "Rp"+Number(n||0).toLocaleString("id-ID");
+const selectedMonth = () => document.getElementById("month").value;
+
+function persist(){
+  localStorage.setItem("transactions",JSON.stringify(transactions));
+  localStorage.setItem("budgets",JSON.stringify(budgets));
+  localStorage.setItem("shopping",JSON.stringify(shopping));
+}
+
+function updateCategories(){
+  const type=document.getElementById("type").value;
+  document.getElementById("category").innerHTML=
+    categories[type].map(c=>`<option>${c}</option>`).join("");
+}
+document.getElementById("type").addEventListener("change",updateCategories);
+
+function saveBudget(){
+  const m=selectedMonth();
+  if(!m)return alert("Pilih bulan terlebih dahulu.");
+  budgets[m]=Number(document.getElementById("budget").value)||0;
+  persist();render();
+}
+
+document.getElementById("transactionForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  transactions.push({
+    id:Date.now()+Math.random(),
+    date:document.getElementById("date").value,
+    type:document.getElementById("type").value,
+    category:document.getElementById("category").value,
+    description:document.getElementById("description").value,
+    amount:Number(document.getElementById("amount").value)
+  });
+  persist();
+  e.target.reset();
+  document.getElementById("date").value=new Date().toISOString().slice(0,10);
+  updateCategories();render();
+});
+
+function removeTransaction(id){
+  if(!confirm("Hapus transaksi ini?"))return;
+  transactions=transactions.filter(t=>t.id!==id);
+  persist();render();
+}
+
+function showTab(id,btn){
+  document.querySelectorAll(".tab").forEach(x=>x.hidden=true);
+  document.getElementById(id).hidden=false;
+  document.querySelectorAll(".tabs button").forEach(x=>x.classList.remove("active"));
+  btn.classList.add("active");
+  if(id==="laporan")drawChart();
+}
+
+function addItem(){
+  const input=document.getElementById("newItem");
+  const name=input.value.trim();
+  if(!name)return;
+  shopping.push({name,done:false});
+  input.value="";persist();renderShopping();
+}
+
+function toggleItem(i,checked){
+  shopping[i].done=checked;persist();renderShopping();
+}
+function deleteItem(i){
+  shopping.splice(i,1);persist();renderShopping();
+}
+
+function renderShopping(){
+  document.getElementById("shoppingList").innerHTML=shopping.map((x,i)=>`
+    <div class="item">
+      <label><input type="checkbox" ${x.done?"checked":""} onchange="toggleItem(${i},this.checked)">
+      <span style="${x.done?"text-decoration:line-through;color:#aaa":""}">${escapeHTML(x.name)}</span></label>
+      <button class="delete" style="width:auto" onclick="deleteItem(${i})">Hapus</button>
+    </div>`).join("");
+}
+
+function escapeHTML(s){
+  return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+
+function render(){
+  const m=selectedMonth();
+  const list=transactions.filter(t=>t.date.startsWith(m));
+  const income=list.filter(t=>t.type==="income").reduce((s,t)=>s+t.amount,0);
+  const expense=list.filter(t=>t.type==="expense").reduce((s,t)=>s+t.amount,0);
+  const budget=budgets[m]||0;
+  document.getElementById("budget").value=budget||"";
+  document.getElementById("income").textContent=rupiah(income);
+  document.getElementById("expense").textContent=rupiah(expense);
+  document.getElementById("remaining").textContent=rupiah(budget-expense);
+  document.getElementById("percentage").textContent=budget?Math.round(expense/budget*100)+"%":"0%";
+
+  document.getElementById("history").innerHTML=list.slice().reverse().map(t=>`
+    <tr>
+      <td>${t.date}</td><td>${t.type==="income"?"Pemasukan":"Pengeluaran"}</td>
+      <td>${escapeHTML(t.category)}</td><td>${escapeHTML(t.description)}</td>
+      <td>${rupiah(t.amount)}</td>
+      <td><button class="delete" onclick="removeTransaction(${t.id})">Hapus</button></td>
+    </tr>`).join("")||'<tr><td colspan="6">Belum ada transaksi.</td></tr>';
+
+  const sums={};
+  list.filter(t=>t.type==="expense").forEach(t=>{
+    sums[t.category]=(sums[t.category]||0)+t.amount;
+  });
+  document.getElementById("categorySummary").innerHTML=
+    Object.entries(sums).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`
+    <div class="item"><span>${escapeHTML(k)}</span><b>${rupiah(v)}</b></div>`
+    ).join("")||"Belum ada pengeluaran.";
+
+  document.getElementById("report").innerHTML=`
+    <p>Total pemasukan: <b>${rupiah(income)}</b></p>
+    <p>Total pengeluaran: <b>${rupiah(expense)}</b></p>
+    <p>Sisa anggaran: <b>${rupiah(budget-expense)}</b></p>
+    <p>Saldo bersih transaksi: <b>${rupiah(income-expense)}</b></p>`;
+  renderShopping();
+  if(!document.getElementById("laporan").hidden)drawChart();
+}
+
+function drawChart(){
+  const m=selectedMonth();
+  const sums={};
+  transactions.filter(t=>t.date.startsWith(m)&&t.type==="expense")
+    .forEach(t=>sums[t.category]=(sums[t.category]||0)+t.amount);
+  if(chart)chart.destroy();
+  chart=new Chart(document.getElementById("chart"),{
+    type:"doughnut",
+    data:{
+      labels:Object.keys(sums),
+      datasets:[{data:Object.values(sums)}]
+    },
+    options:{responsive:true,plugins:{legend:{position:"bottom"}}}
+  });
+}
+
+document.getElementById("month").value=new Date().toISOString().slice(0,7);
+document.getElementById("date").value=new Date().toISOString().slice(0,10);
+updateCategories();
+render();
+</script>
+</body>
+</html>
