@@ -1,141 +1,55 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#f8eaf1">
-<title>Rekap Rumah Tangga</title>
+<!doctype html>
+<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f8eaf1"><title>Rekap Pengeluaran Rumah Tangga</title>
 <style>
-:root{--pink:#f3dce8;--pink2:#fff3f8;--lilac:#e9e3f5;--mint:#e5f1e9;--ink:#514657;--muted:#8a7f8e;--line:#eee6ed;--white:#fff;--shadow:0 8px 28px #5b3c5410}
-*{box-sizing:border-box}body{margin:0;background:#fcf9fb;color:var(--ink);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
-header{background:linear-gradient(120deg,#f8e8f0,#eee9f8);padding:26px 20px 30px;border-bottom:1px solid #f0e6ee}
-.wrap{max-width:1120px;margin:auto}header .top{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
-h1{font-size:clamp(23px,4vw,32px);margin:0 0 5px}header p{margin:0;color:#776a7c}.monthbox{display:flex;gap:8px;align-items:center;background:#ffffffa8;padding:9px 12px;border-radius:14px}
-main{max-width:1120px;margin:22px auto;padding:0 18px 50px}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
-.card,.panel{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:var(--shadow)}
-.card small{color:var(--muted)}.card strong{display:block;font-size:clamp(19px,3vw,26px);margin-top:7px;overflow-wrap:anywhere}.card:nth-child(1){background:#fff7fb}.card:nth-child(2){background:#f8f5ff}.card:nth-child(3){background:#f3faf5}.card:nth-child(4){background:#fff9ef}
-.layout{display:grid;grid-template-columns:1.1fr .9fr;gap:16px}.panel h2{font-size:18px;margin:0 0 15px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
-label{display:block;font-size:13px;color:var(--muted);margin-bottom:5px}input,select,button{font:inherit}input,select{width:100%;padding:11px 12px;border:1px solid #e8dfe8;border-radius:11px;background:#fff;color:var(--ink);outline:none}input:focus,select:focus{border-color:#c9a9c9;box-shadow:0 0 0 3px #f5eaf3}
-.full{grid-column:1/-1}.btn{border:0;border-radius:11px;padding:11px 15px;cursor:pointer;font-weight:650}.primary{background:#765d79;color:#fff}.soft{background:var(--pink2);color:#765d79;border:1px solid #f0dce8}.danger{background:#fff0f0;color:#a54c55}.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
-.toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin:20px 0 12px}.toolbar h2{margin:0}.tablewrap{overflow-x:auto}table{width:100%;border-collapse:collapse;min-width:650px}th,td{text-align:left;padding:11px 9px;border-bottom:1px solid var(--line);font-size:13px}th{color:var(--muted);font-weight:600;background:#fdfafd}td.money{text-align:right;font-weight:650}td.actions{white-space:nowrap}.empty{text-align:center;color:var(--muted);padding:25px}
-.chartrow{display:grid;grid-template-columns:115px 1fr 100px;align-items:center;gap:9px;margin:12px 0;font-size:13px}.track{height:10px;background:#f2edf2;border-radius:20px;overflow:hidden}.bar{height:100%;background:linear-gradient(90deg,#d9b8d0,#b8abd9);border-radius:20px}
-.checkrow{display:flex;gap:9px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line)}.checkrow input{width:auto}.checkrow.done span{text-decoration:line-through;color:#aaa}.pill{display:inline-block;padding:3px 8px;border-radius:20px;background:#f5edf5;color:#78657b;font-size:11px}
-.note{color:var(--muted);font-size:12px;margin-top:10px}.footer{text-align:center;color:#a093a2;font-size:12px;margin-top:25px}
-@media(max-width:800px){.cards{grid-template-columns:repeat(2,1fr)}.layout{grid-template-columns:1fr}}
-@media(max-width:480px){main{padding:0 12px 35px}.card,.panel{padding:14px}.formgrid{grid-template-columns:1fr}.full{grid-column:auto}.chartrow{grid-template-columns:90px 1fr 82px;font-size:12px}}
-</style>
-</head>
-<body>
-<header><div class="wrap top">
- <div><h1>🌷 Rekap Rumah Tangga</h1><p>Catat pengeluaran, atur anggaran, hidup lebih terencana.</p></div>
- <div class="monthbox"><label for="monthFilter" style="margin:0">Bulan</label><input id="monthFilter" type="month" style="width:auto"></div>
-</div></header>
+:root{--ink:#514657;--muted:#887d8d;--line:#eee5ed;--pink:#f7e7ef;--accent:#765d79}*{box-sizing:border-box}body{margin:0;background:#fcf9fb;color:var(--ink);font:15px/1.5 system-ui}header{background:linear-gradient(120deg,#f8e8f0,#eee9f8);padding:22px 16px}.wrap,main{max-width:1050px;margin:auto}main{padding:18px 12px 40px}.panel,.card{background:white;border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 7px 24px #5b3c540c}h1{margin:0;font-size:clamp(22px,4vw,30px)}h2{font-size:18px;margin:0 0 12px}.muted,small{color:var(--muted)}input,select,button{font:inherit}input,select{width:100%;padding:10px;border:1px solid #e8dfe8;border-radius:10px}label{display:block;font-size:13px;color:var(--muted);margin:8px 0 4px}button{border:0;border-radius:10px;padding:10px 14px;cursor:pointer;font-weight:650}.primary{background:var(--accent);color:white}.soft{background:#fff3f8;color:var(--accent)}.danger{background:#fff0f0;color:#a34e59}.hidden{display:none!important}.auth{max-width:420px;margin:20px auto}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}.card strong{display:block;font-size:clamp(18px,3vw,24px);overflow-wrap:anywhere}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.fields{display:grid;grid-template-columns:1fr 1fr;gap:8px}.full{grid-column:1/-1}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin:14px 0}.tablewrap{overflow:auto}table{border-collapse:collapse;width:100%;min-width:620px}th,td{text-align:left;padding:9px;border-bottom:1px solid var(--line);font-size:13px}th{color:var(--muted)}.chartrow{display:grid;grid-template-columns:110px 1fr 90px;gap:8px;align-items:center;margin:10px 0;font-size:12px}.track{height:9px;background:#f1edf2;border-radius:20px;overflow:hidden}.bar{height:100%;background:linear-gradient(90deg,#d9b8d0,#b8abd9)}.checkrow{display:flex;gap:8px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}.checkrow input{width:auto}.done span{text-decoration:line-through;color:#aaa}.status{font-size:12px;background:#eaf5ed;color:#39734a;border-radius:20px;padding:5px 9px}.note{font-size:12px;color:var(--muted)}footer{text-align:center;color:#a093a2;font-size:12px;margin-top:20px}@media(max-width:760px){.cards{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}}@media(max-width:450px){.fields{grid-template-columns:1fr}.full{grid-column:auto}.chartrow{grid-template-columns:85px 1fr 75px}}
+</style></head><body>
+<header><div class="wrap"><h1>🌷 Rekap Rumah Tangga</h1><div class="muted">Catat pengeluaran, atur anggaran, dan pantau keuangan keluarga.</div></div></header>
 <main>
- <section class="cards">
-  <div class="card"><small>Anggaran Bulanan</small><strong id="budgetCard">Rp0</strong></div>
-  <div class="card"><small>Total Pengeluaran</small><strong id="spentCard">Rp0</strong></div>
-  <div class="card"><small>Sisa Anggaran</small><strong id="remainingCard">Rp0</strong></div>
-  <div class="card"><small>Jumlah Transaksi</small><strong id="countCard">0</strong></div>
- </section>
- <section class="layout">
-  <div class="panel">
-   <h2>✏️ Catat Pengeluaran</h2>
-   <form id="expenseForm">
-    <div class="formgrid">
-     <div><label for="date">Tanggal</label><input id="date" type="date" required></div>
-     <div><label for="category">Kategori</label><select id="category" required></select></div>
-     <div class="full"><label for="item">Nama kebutuhan / barang</label><input id="item" placeholder="Contoh: Beras 5 kg" required maxlength="80"></div>
-     <div><label for="qty">Jumlah</label><input id="qty" type="number" min="0.01" step="any" value="1" required></div>
-     <div><label for="unit">Satuan</label><input id="unit" placeholder="kg, pcs, liter, paket"></div>
-     <div><label for="price">Harga satuan (Rp)</label><input id="price" type="number" min="0" step="100" placeholder="Contoh: 75000" required></div>
-     <div><label for="payment">Metode pembayaran</label><select id="payment"><option>Tunai</option><option>Transfer</option><option>QRIS</option><option>Debit/Kredit</option><option>Lainnya</option></select></div>
-     <div class="full"><label for="memo">Catatan (opsional)</label><input id="memo" placeholder="Catatan tambahan"></div>
-    </div>
-    <div class="btnrow"><button class="btn primary" type="submit" id="saveBtn">+ Simpan Pengeluaran</button><button class="btn soft" type="reset" id="cancelEdit" hidden>Batal edit</button></div>
-   </form>
-   <p class="note">Total transaksi dihitung otomatis dari jumlah × harga satuan.</p>
-  </div>
-  <div class="panel">
-   <h2>🎀 Atur Anggaran Bulanan</h2>
-   <label for="budgetInput">Anggaran untuk bulan terpilih (Rp)</label>
-   <input id="budgetInput" type="number" min="0" step="1000" placeholder="Contoh: 3000000">
-   <div class="btnrow"><button class="btn primary" id="saveBudget">Simpan Anggaran</button></div>
-   <p class="note">Anggaran disimpan terpisah untuk setiap bulan.</p>
-   <hr style="border:0;border-top:1px solid var(--line);margin:20px 0">
-   <h2>📊 Pengeluaran per Kategori</h2>
-   <div id="chart"><p class="empty">Belum ada pengeluaran bulan ini.</p></div>
-  </div>
- </section>
- <section class="panel" style="margin-top:16px">
-  <div class="toolbar"><h2>🧾 Riwayat Pengeluaran</h2><div class="btnrow" style="margin:0"><button class="btn soft" id="exportCsv">Unduh CSV</button><button class="btn danger" id="clearMonth">Hapus transaksi bulan ini</button></div></div>
-  <div class="tablewrap"><table><thead><tr><th>Tanggal</th><th>Kategori</th><th>Barang</th><th>Jumlah</th><th>Pembayaran</th><th>Total</th><th>Aksi</th></tr></thead><tbody id="expenseRows"></tbody></table></div>
- </section>
- <section class="layout" style="margin-top:16px">
-  <div class="panel"><h2>🛒 Daftar Belanja</h2>
-   <form id="shoppingForm" class="formgrid"><div class="full"><label for="shoppingItem">Nama kebutuhan</label><input id="shoppingItem" placeholder="Contoh: Sabun cuci piring" required></div><div class="full"><button class="btn primary" type="submit">+ Tambah ke daftar</button></div></form>
-   <div id="shoppingList" style="margin-top:12px"></div>
-  </div>
-  <div class="panel"><h2>💡 Tips penggunaan</h2>
-   <p style="margin-top:0">• Isi anggaran di awal bulan.</p><p>• Catat belanja setiap selesai transaksi.</p><p>• Periksa grafik untuk mengetahui kategori terbesar.</p><p>• Unduh CSV sebagai arsip atau bahan rekap di Excel.</p>
-   <p class="note">Data disimpan di penyimpanan browser (localStorage) pada perangkat ini. Data tidak otomatis tersinkron ke HP/laptop lain.</p>
-  </div>
- </section>
- <div class="footer">Dibuat untuk membantu pengelolaan keuangan rumah tangga ♡</div>
-</main>
+<section id="auth" class="panel auth"><h2>♡ Masuk ke akun</h2><p class="note">Gunakan akun yang sama di HP dan laptop untuk sinkronisasi.</p><label>Email</label><input id="email" type="email" placeholder="nama@email.com"><label>Kata sandi</label><input id="password" type="password" placeholder="Minimal 6 karakter"><div class="actions"><button class="primary" id="login">Masuk</button><button class="soft" id="signup">Daftar akun</button></div><p id="authmsg" class="note"></p></section>
+<section id="app" class="hidden">
+<div class="toolbar"><div><b>Dashboard keuangan</b><div id="who" class="note"></div></div><div><label>Bulan</label><input id="month" type="month"></div><button id="logout" class="soft">Keluar</button></div>
+<div class="cards"><div class="card"><small>Anggaran</small><strong id="budgetTotal">Rp0</strong></div><div class="card"><small>Pengeluaran</small><strong id="spent">Rp0</strong></div><div class="card"><small>Sisa anggaran</small><strong id="remaining">Rp0</strong></div><div class="card"><small>Transaksi</small><strong id="count">0</strong></div></div>
+<div class="grid"><section class="panel"><h2>✏️ Catat pengeluaran</h2><form id="expenseForm" class="fields">
+<div><label>Tanggal</label><input id="date" type="date" required></div><div><label>Kategori</label><select id="category"></select></div>
+<div class="full"><label>Nama kebutuhan/barang</label><input id="item" required placeholder="Beras 5 kg"></div>
+<div><label>Jumlah</label><input id="qty" type="number" min=".01" step="any" value="1" required></div><div><label>Satuan</label><input id="unit" placeholder="kg, pcs, liter"></div>
+<div><label>Harga satuan (Rp)</label><input id="price" type="number" min="0" required></div><div><label>Pembayaran</label><select id="payment"><option>Tunai</option><option>Transfer</option><option>QRIS</option><option>Debit/Kredit</option><option>Lainnya</option></select></div>
+<div class="full"><label>Catatan</label><input id="memo" placeholder="Opsional"></div><div class="full actions"><button class="primary" id="saveExpense">+ Simpan</button><button type="button" id="cancel" class="soft hidden">Batal edit</button></div></form><p class="note">Total dihitung dari jumlah × harga satuan.</p></section>
+<section class="panel"><h2>🎀 Anggaran bulanan</h2><label>Anggaran bulan terpilih (Rp)</label><input id="budgetInput" type="number" min="0" placeholder="3000000"><div class="actions"><button id="saveBudget" class="primary">Simpan anggaran</button></div><hr style="border:0;border-top:1px solid var(--line);margin:18px 0"><h2>📊 Pengeluaran per kategori</h2><div id="chart" class="note">Belum ada transaksi.</div></section></div>
+<section class="panel" style="margin-top:12px"><div class="toolbar"><h2>🧾 Riwayat pengeluaran</h2><div class="actions"><button id="csv" class="soft">Unduh CSV</button><button id="clear" class="danger">Hapus bulan ini</button></div></div><div class="tablewrap"><table><thead><tr><th>Tanggal</th><th>Kategori</th><th>Barang</th><th>Jumlah</th><th>Pembayaran</th><th>Total</th><th>Aksi</th></tr></thead><tbody id="rows"></tbody></table></div></section>
+<div class="grid" style="margin-top:12px"><section class="panel"><h2>🛒 Daftar belanja</h2><form id="shopForm"><label>Nama kebutuhan</label><input id="shopName" required placeholder="Sabun cuci piring"><div class="actions"><button class="primary">+ Tambah</button></div></form><div id="shopList"></div></section><section class="panel"><h2>Informasi sinkronisasi</h2><p class="note">Data tersimpan online di Supabase. Gunakan akun yang sama di HP dan laptop. Ekspor CSV berkala sebagai cadangan.</p><span class="status" id="sync">Tersinkron</span></section></div>
+</section><footer>Pengelolaan keuangan rumah tangga ♡</footer></main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script>
 <script>
-const CATEGORIES=["Bahan pokok & dapur","Belanja segar","Kebutuhan kamar mandi","Kebersihan rumah","Kebutuhan pribadi","Kebutuhan anak/sekolah","Tagihan rutin","Transportasi","Kesehatan","Hiburan & rekreasi","Lain-lain"];
-const $=id=>document.getElementById(id);
-const rupiah=n=>new Intl.NumberFormat("id-ID",{style:"currency",currency:"IDR",maximumFractionDigits:0}).format(Number(n)||0);
-const today=new Date(), monthNow=()=>`${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,"0")}`;
-let expenses=JSON.parse(localStorage.getItem("rt_expenses")||"[]");
-let budgets=JSON.parse(localStorage.getItem("rt_budgets")||"{}");
-let shopping=JSON.parse(localStorage.getItem("rt_shopping")||"[]");
-let editingId=null;
-$("monthFilter").value=monthNow(); $("date").value=today.toISOString().slice(0,10);
-$("category").innerHTML=CATEGORIES.map(c=>`<option>${c}</option>`).join("");
-const selectedMonth=()=>$("monthFilter").value||monthNow();
-const saveAll=()=>{localStorage.setItem("rt_expenses",JSON.stringify(expenses));localStorage.setItem("rt_budgets",JSON.stringify(budgets));localStorage.setItem("rt_shopping",JSON.stringify(shopping));};
-const monthItems=()=>expenses.filter(e=>e.date.startsWith(selectedMonth())).sort((a,b)=>b.date.localeCompare(a.date));
-function render(){
- const list=monthItems(),spent=list.reduce((s,e)=>s+e.total,0),budget=Number(budgets[selectedMonth()]||0);
- $("budgetCard").textContent=rupiah(budget);$("spentCard").textContent=rupiah(spent);
- $("remainingCard").textContent=rupiah(budget-spent);$("countCard").textContent=list.length;
- $("budgetInput").value=budget||"";
- $("expenseRows").innerHTML=list.length?list.map(e=>`<tr><td>${e.date}</td><td><span class="pill">${esc(e.category)}</span></td><td><b>${esc(e.item)}</b><br><span style="color:#999">${esc(e.memo||"")}</span></td><td>${e.qty} ${esc(e.unit||"")}</td><td>${esc(e.payment)}</td><td class="money">${rupiah(e.total)}</td><td class="actions"><button class="btn soft" onclick="editExpense('${e.id}')">Edit</button> <button class="btn danger" onclick="deleteExpense('${e.id}')">Hapus</button></td></tr>`).join(""):`<tr><td colspan="7" class="empty">Belum ada transaksi untuk bulan ini.</td></tr>`;
- renderChart(list,spent);renderShopping();
-}
+const $=id=>document.getElementById(id),cats=["Bahan pokok & dapur","Belanja segar","Kamar mandi","Kebersihan rumah","Kebutuhan pribadi","Kebutuhan anak/sekolah","Tagihan rutin","Transportasi","Kesehatan","Hiburan","Lain-lain"],money=n=>new Intl.NumberFormat("id-ID",{style:"currency",currency:"IDR",maximumFractionDigits:0}).format(+n||0);
+$("category").innerHTML=cats.map(x=>`<option>${x}</option>`).join("");let sb,user,expenses=[],budgets=[],shops=[],editId=null,channel;
+const now=new Date(),ym=()=>`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,"0")}`,month=()=>$("month").value||ym();
+$("month").value=ym();$("date").value=now.toISOString().slice(0,10);
+const ready=window.APP_CONFIG&&APP_CONFIG.SUPABASE_URL.startsWith("https://")&&APP_CONFIG.SUPABASE_PUBLISHABLE_KEY&&!APP_CONFIG.SUPABASE_PUBLISHABLE_KEY.includes("GANTI_DENGAN");
+if(!window.supabase)$("authmsg").textContent="Koneksi library gagal. Periksa internet.";
+else if(!ready)$("authmsg").textContent="Konfigurasi Supabase belum diisi. Ikuti README.md.";
+else{sb=supabase.createClient(APP_CONFIG.SUPABASE_URL,APP_CONFIG.SUPABASE_PUBLISHABLE_KEY);(async()=>{let {data:{session}}=await sb.auth.getSession();if(session)await enter(session.user);sb.auth.onAuthStateChange(async(_,s)=>{if(s&&!user)await enter(s.user);if(!s)leave();})();})();}
+$("login").onclick=async()=>{let {error}=await sb.auth.signInWithPassword({email:$("email").value.trim(),password:$("password").value});$("authmsg").textContent=error?error.message:"Berhasil masuk.";};
+$("signup").onclick=async()=>{let {data,error}=await sb.auth.signUp({email:$("email").value.trim(),password:$("password").value});$("authmsg").textContent=error?error.message:(data.session?"Akun dibuat, Anda sudah masuk.":"Akun dibuat. Periksa email konfirmasi lalu masuk.");};
+$("logout").onclick=()=>sb.auth.signOut();
+function leave(){user=null;expenses=[];budgets=[];shops=[];$("app").classList.add("hidden");$("auth").classList.remove("hidden");if(channel)sb.removeChannel(channel);}
+async function enter(u){user=u;$("auth").classList.add("hidden");$("app").classList.remove("hidden");$("who").textContent=u.email;await load();if(channel)sb.removeChannel(channel);channel=sb.channel("sync").on("postgres_changes",{event:"*",schema:"public",table:"expenses"},load).on("postgres_changes",{event:"*",schema:"public",table:"monthly_budgets"},load).on("postgres_changes",{event:"*",schema:"public",table:"shopping_items"},load).subscribe();}
+async function load(){let r=await Promise.all([sb.from("expenses").select("*").order("date",{ascending:false}),sb.from("monthly_budgets").select("*"),sb.from("shopping_items").select("*").order("created_at")]);let err=r.find(x=>x.error)?.error;if(err){$("sync").textContent="Database belum siap: "+err.message;return;}[expenses,budgets,shops]=r.map(x=>x.data||[]);$("sync").textContent="Tersinkron dengan database";render();}
+function list(){return expenses.filter(x=>String(x.date).startsWith(month()));}
 function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
-function renderChart(list,total){
- const sums={};list.forEach(e=>sums[e.category]=(sums[e.category]||0)+e.total);
- const rows=Object.entries(sums).sort((a,b)=>b[1]-a[1]);
- $("chart").innerHTML=rows.length?rows.map(([name,val])=>`<div class="chartrow"><span>${esc(name)}</span><div class="track"><div class="bar" style="width:${total?val/total*100:0}%"></div></div><b style="text-align:right">${rupiah(val)}</b></div>`).join(""):`<p class="empty">Belum ada pengeluaran bulan ini.</p>`;
-}
-$("expenseForm").addEventListener("submit",ev=>{
- ev.preventDefault();
- const qty=Number($("qty").value),price=Number($("price").value);
- const data={id:editingId||crypto.randomUUID(),date:$("date").value,category:$("category").value,item:$("item").value.trim(),qty,unit:$("unit").value.trim(),price,payment:$("payment").value,memo:$("memo").value.trim(),total:qty*price};
- if(editingId){expenses=expenses.map(e=>e.id===editingId?data:e);}else{expenses.push(data);}
- editingId=null;saveAll();$("expenseForm").reset();$("date").value=today.toISOString().slice(0,10);$("qty").value=1;$("saveBtn").textContent="+ Simpan Pengeluaran";$("cancelEdit").hidden=true;render();
-});
-window.editExpense=id=>{const e=expenses.find(x=>x.id===id);if(!e)return;editingId=id;
- ["date","category","item","qty","unit","price","payment","memo"].forEach(k=>$(k).value=e[k]??"");
- $("saveBtn").textContent="Simpan Perubahan";$("cancelEdit").hidden=false;window.scrollTo({top:0,behavior:"smooth"});};
-window.deleteExpense=id=>{if(confirm("Hapus transaksi ini?")){expenses=expenses.filter(e=>e.id!==id);saveAll();render();}};
-$("cancelEdit").onclick=()=>{editingId=null;$("saveBtn").textContent="+ Simpan Pengeluaran";$("cancelEdit").hidden=true;};
-$("saveBudget").onclick=()=>{budgets[selectedMonth()]=Number($("budgetInput").value)||0;saveAll();render();};
-$("monthFilter").addEventListener("change",render);
-$("clearMonth").onclick=()=>{if(confirm("Yakin ingin menghapus semua transaksi pada bulan terpilih?")){expenses=expenses.filter(e=>!e.date.startsWith(selectedMonth()));saveAll();render();}};
-$("exportCsv").onclick=()=>{
- const rows=[["Tanggal","Kategori","Nama Barang","Jumlah","Satuan","Harga Satuan","Total","Pembayaran","Catatan"],...monthItems().map(e=>[e.date,e.category,e.item,e.qty,e.unit,e.price,e.total,e.payment,e.memo])];
- const csv=rows.map(r=>r.map(v=>`"${String(v??"").replace(/"/g,'""')}"`).join(";")).join("\r\n");
- const blob=new Blob(["\ufeff"+csv],{type:"text/csv;charset=utf-8;"}),url=URL.createObjectURL(blob),a=document.createElement("a");
- a.href=url;a.download=`rekap-pengeluaran-${selectedMonth()}.csv`;a.click();URL.revokeObjectURL(url);
-};
-$("shoppingForm").addEventListener("submit",e=>{e.preventDefault();const val=$("shoppingItem").value.trim();if(val){shopping.push({id:crypto.randomUUID(),name:val,done:false});$("shoppingItem").value="";saveAll();renderShopping();}});
-function renderShopping(){$("shoppingList").innerHTML=shopping.length?shopping.map(x=>`<div class="checkrow ${x.done?"done":""}"><input type="checkbox" ${x.done?"checked":""} onchange="toggleShop('${x.id}',this.checked)"><span style="flex:1">${esc(x.name)}</span><button class="btn danger" onclick="removeShop('${x.id}')">×</button></div>`).join(""):`<p class="empty">Daftar belanja masih kosong.</p>`;}
-window.toggleShop=(id,v)=>{shopping=shopping.map(x=>x.id===id?{...x,done:v}:x);saveAll();renderShopping();};
-window.removeShop=id=>{shopping=shopping.filter(x=>x.id!==id);saveAll();renderShopping();};
-render();
-</script>
-</body>
-</html>
+function render(){let a=list(),spent=a.reduce((s,x)=>s+Number(x.total),0),budget=Number(budgets.find(x=>x.month===month())?.amount||0);$("budgetTotal").textContent=money(budget);$("spent").textContent=money(spent);$("remaining").textContent=money(budget-spent);$("count").textContent=a.length;$("budgetInput").value=budget||"";
+$("rows").innerHTML=a.length?a.map(x=>`<tr><td>${x.date}</td><td>${esc(x.category)}</td><td>${esc(x.item)}<br><small>${esc(x.memo||"")}</small></td><td>${x.qty} ${esc(x.unit||"")}</td><td>${esc(x.payment)}</td><td>${money(x.total)}</td><td><button class="soft" onclick="edit('${x.id}')">Edit</button> <button class="danger" onclick="del('${x.id}')">Hapus</button></td></tr>`).join(""):`<tr><td colspan="7">Belum ada transaksi bulan ini.</td></tr>`;
+let sums={};a.forEach(x=>sums[x.category]=(sums[x.category]||0)+Number(x.total));$("chart").innerHTML=Object.entries(sums).sort((a,b)=>b[1]-a[1]).map(([n,v])=>`<div class="chartrow"><span>${esc(n)}</span><div class="track"><div class="bar" style="width:${spent?v/spent*100:0}%"></div></div><b>${money(v)}</b></div>`).join("")||"Belum ada transaksi.";
+$("shopList").innerHTML=shops.map(x=>`<div class="checkrow ${x.done?"done":""}"><input type="checkbox" ${x.done?"checked":""} onchange="toggleShop('${x.id}',this.checked)"><span style="flex:1">${esc(x.name)}</span><button class="danger" onclick="removeShop('${x.id}')">×</button></div>`).join("")||'<p class="note">Daftar belanja kosong.</p>';}
+$("expenseForm").onsubmit=async e=>{e.preventDefault();let qty=+$("qty").value,price=+$("price").value,row={user_id:user.id,date:$("date").value,category:$("category").value,item:$("item").value.trim(),qty,unit:$("unit").value,price,payment:$("payment").value,memo:$("memo").value,total:qty*price};let q=editId?sb.from("expenses").update(row).eq("id",editId):sb.from("expenses").insert(row);let {error}=await q;if(error){alert(error.message);return;}editId=null;$("expenseForm").reset();$("date").value=now.toISOString().slice(0,10);$("qty").value=1;$("saveExpense").textContent="+ Simpan";$("cancel").classList.add("hidden");await load();};
+window.edit=id=>{let x=expenses.find(v=>v.id===id);if(!x)return;editId=id;["date","category","item","qty","unit","price","payment","memo"].forEach(k=>$(k).value=x[k]??"");$("saveExpense").textContent="Simpan perubahan";$("cancel").classList.remove("hidden");scrollTo({top:0,behavior:"smooth"});};
+$("cancel").onclick=()=>{editId=null;$("expenseForm").reset();$("date").value=now.toISOString().slice(0,10);$("qty").value=1;$("saveExpense").textContent="+ Simpan";$("cancel").classList.add("hidden");};
+window.del=async id=>{if(confirm("Hapus transaksi?")){let {error}=await sb.from("expenses").delete().eq("id",id);if(error)alert(error.message);else await load();}};
+$("saveBudget").onclick=async()=>{let {error}=await sb.from("monthly_budgets").upsert({user_id:user.id,month:month(),amount:+$("budgetInput").value||0},{onConflict:"user_id,month"});if(error)alert(error.message);else await load();};
+$("month").onchange=render;
+$("clear").onclick=async()=>{if(!confirm("Hapus semua transaksi bulan ini?"))return;let [y,m]=month().split("-").map(Number),end=new Date(y,m,1).toISOString().slice(0,10);let {error}=await sb.from("expenses").delete().gte("date",month()+"-01").lt("date",end);if(error)alert(error.message);else await load();};
+$("csv").onclick=()=>{let rows=[["Tanggal","Kategori","Barang","Jumlah","Satuan","Harga satuan","Total","Pembayaran","Catatan"],...list().map(x=>[x.date,x.category,x.item,x.qty,x.unit,x.price,x.total,x.payment,x.memo])],csv=rows.map(r=>r.map(v=>`"${String(v??"").replace(/"/g,'""')}"`).join(";")).join("\r\n"),a=document.createElement("a"),url=URL.createObjectURL(new Blob(["\ufeff"+csv],{type:"text/csv;charset=utf-8"}));a.href=url;a.download=`rekap-${month()}.csv`;a.click();URL.revokeObjectURL(url);};
+$("shopForm").onsubmit=async e=>{e.preventDefault();let {error}=await sb.from("shopping_items").insert({user_id:user.id,name:$("shopName").value.trim(),done:false});if(error)alert(error.message);else{$("shopName").value="";await load();}};
+window.toggleShop=async(id,done)=>{let {error}=await sb.from("shopping_items").update({done}).eq("id",id);if(error)alert(error.message);else await load();};
+window.removeShop=async id=>{let {error}=await sb.from("shopping_items").delete().eq("id",id);if(error)alert(error.message);else await load();};
+</script></body></html>
